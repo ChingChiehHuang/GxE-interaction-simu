@@ -115,7 +115,9 @@ for(l in 1:100){
   Z_score <- apply(gene,2,function(x)1-summary(glm(E~x))$coefficients[2,4])
   indicator <- function(x) ifelse(abs(x)>=min(abs(Z_score)[rank(abs(Z_score))> 0.9*length(Z_score)]),1,0)
   W <- indicator(Z_score)*sign(Z_score)+0.0001
-  SEBRIA_P[l]  <- summary(glm(y~E+Age+gene+E*as.matrix(gene)%*%W ))$coefficients[ncol(gene)+4,4]
+  coef <- summary(lm(y~E+Age+gene+E*as.matrix(gene)%*%W ))$coefficients
+  SEBRIA_P[l]  <- coef[nrow(coef),4]
+  
   
   #MixGE_RAN_P
   W <- cbind(rep(1/ncol(gene),ncol(gene)))
