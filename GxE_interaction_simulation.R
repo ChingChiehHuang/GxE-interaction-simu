@@ -112,7 +112,7 @@ for(l in 1:100){
   rareGE_FIX_P[l] <- rareGE(phenotype= y, genotypes=gene, covariates=cbind(E,Age),family = "binomial",B = 1000)$pINT_FIX
   
   #SEBRIA_P
-  Z_score <- apply(gene,2,function(x)cor(E,x))
+  Z_score <- apply(gene,2,function(x)1-summary(glm(E~x))$coefficients[2,4])
   indicator <- function(x) ifelse(abs(x)>=min(abs(Z_score)[rank(abs(Z_score))> 0.9*length(Z_score)]),1,0)
   W <- indicator(Z_score)*sign(Z_score)+0.0001
   SEBRIA_P[l]  <- summary(glm(y~E+Age+gene+E*as.matrix(gene)%*%W ))$coefficients[ncol(gene)+4,4]
