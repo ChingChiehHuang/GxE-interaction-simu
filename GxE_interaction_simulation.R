@@ -158,7 +158,7 @@ for(l in 1:100){
   GESAT_P[l] <- GESAT(Z=gene, Y=as.matrix(y), E=as.matrix(E), X=as.matrix(Age), out_type="D")$pvalue 
   #iSKAT_P
   iSKAT_P[l] <- iSKAT(Z=gene, Y=as.matrix(y), E=as.matrix(E), X=as.matrix(Age), out_type="D"
-                      , scale.Z=TRUE, r.corr=0, MAF_cutoff=1, weights.beta=NULL)$pvalue
+                      , scale.Z=TRUE, MAF_cutoff=1, weights.beta=NULL)$pvalue
 }
 
 
