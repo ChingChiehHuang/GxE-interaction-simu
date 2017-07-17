@@ -130,12 +130,12 @@ for(l in 1:100){
   for(a in 1:length(y)){
     S1[a] <-  mu_hat[a]*(1-mu_hat[a])
   }
-  D1 <- diag(S1)
+  sloD1 <- solve(D1)
   M <- cbind(Age,E,gene%*%W,diag(E)%*%gene%*%W)
-  P <-  D1-D1%*%M%*%solve((t(M)%*%D1%*%M))%*%t(M)%*%D1
+  P <-  sloD1-sloD1%*%M%*%solve((t(M)%*%sloD1%*%M))%*%t(M)%*%sloD1
   eig2 <- eigen(P)
-  evals2 <- eig2$values[zapsmall(eig2$values) != 0]
-  MixGE_RAN_P[l] <- pchisqsum(S_tau, df=rep(1, length(evals2)), evals2,lower.tail = F)
+  evals2 <- eig2$values[eig2$values != 0]
+  MixGE_RAN_P[l] <- pchisqsum(S_tau, df=rep(1, length(evals2)),a= evals2,lower.tail = F,method="sad")
   
   #MixGE_FIX_P
   
