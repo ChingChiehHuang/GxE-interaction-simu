@@ -130,6 +130,7 @@ for(l in 1:100){
   for(a in 1:length(y)){
     S1[a] <-  mu_hat[a]*(1-mu_hat[a])
   }
+  D1 <- diag(S1)                
   sloD1 <- solve(D1)
   M <- cbind(Age,E,gene%*%W,diag(E)%*%gene%*%W)
   P <-  sloD1-sloD1%*%M%*%solve((t(M)%*%sloD1%*%M))%*%t(M)%*%sloD1
